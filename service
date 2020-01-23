@@ -1,0 +1,62 @@
+#!/usr/bin/env python
+
+import json
+import requests
+import traceback
+import time
+from datetime import datetime, timedelta
+import base64
+import pytz
+import urllib2
+from os.path import isfile
+
+from hosted import CONFIG, NODE
+
+CONFIG.restart_on_update()
+
+session = requests.Session()
+session.auth = (CONFIG['username'], CONFIG['password'])
+
+def fetch_posts():
+    url = CONFIG['base_url'] + '/rest/enterprise-news-bundle/1.0/corporate-news-feed?offset=0&limit=10'
+    return session.get(url).text
+
+def regenerate():
+    posts = []
+
+    for post in json.loads(fetch_posts()):
+        postId = str(post['postId'])
+
+        #date = datetime.fromtimestamp(post['creationDate'])
+
+        posts.append({
+            'postId': postId,
+            'title': post['title'],
+            'image': True if 'imageUrlQuarterSize' in post else False,
+            'creator': post['creatorFullName'],
+            'likes': post['socialFeatures']['numberOfLikes'],
+            'comments': post['socialFeatures']['numberOfComments'],
+            'excerpt': post['excerpt'],
+            'kicker': post['metadata']['kicker'].upper() if ('metadata' in post and 'kicker' in post['metadata']) else '',
+           # 'date': date.strftime('%A, %d.%m %H:%M'),
+        })
+
+        if 'imageUrl' in post and not isfile('postImage-'+postId+'.png'):
+            with open('postImage-'+postId+'.png', 'wb') as i:
+                image = session.get(CONFIG['base_url'] + post['imageUrl'])
+                i.write(image.content)
+
+    with file("posts.json", "wb") as f:
+        f.write(json.dumps(posts,ensure_ascii=False).encode("utf8"))
+
+def main():
+    while 1:
+        try:
+            regenerate()
+            time.sleep(60)
+        except Exception:
+            traceback.print_exc()
+            time.sleep(30)
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,42 @@
+
+{
+    "name": "Confluence",
+    "permissions": {
+        "network": "Needs to fetch confluence news feed"
+    },
+    "optional": [
+        ".gitignore"
+    ],
+    "options": [{
+        "title": "Background Color",
+        "ui_width": 4,
+        "name": "background",
+        "type": "color",
+        "default": [0,0,0,0]
+    }, {
+        "title": "Font",
+        "ui_width": 8,
+        "name": "font",
+        "type": "font",
+        "doc_link": true,
+        "default": "silkscreen.ttf"
+    }, {
+        "title": "URL",
+        "ui_width": 12,
+        "name": "base_url",
+        "type": "string",
+        "default": "https://demonstration.linchpin-intranet.com"
+    }, {
+        "title": "Username",
+        "ui_width": 6,
+        "name": "username",
+        "type": "string",
+        "default": "tschroeder"
+    }, {
+        "title": "Password",
+        "ui_width": 6,
+        "name": "password",
+        "type": "string",
+        "default": "tschroeder"
+    }]
+}

@@ -1,0 +1,6 @@
+venv
+*.pyc
+postImage-*
+posts.json
+DejaVuSans.ttf
+config.json
