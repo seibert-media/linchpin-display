@@ -46,8 +46,9 @@ def regenerate():
                 image = session.get(CONFIG['base_url'] + post['imageUrl'])
                 i.write(image.content)
 
-    with file("posts.json", "wb") as f:
-        f.write(json.dumps(posts,ensure_ascii=False).encode("utf8"))
+    if len(posts) > 0:
+        with file("posts.json", "wb") as f:
+            f.write(json.dumps(posts,ensure_ascii=False).encode("utf8"))
 
 def main():
     while 1:
