@@ -4,3 +4,4 @@ postImage-*
 posts.json
 DejaVuSans.ttf
 config.json
+__pycache__
