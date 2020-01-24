@@ -15,11 +15,20 @@
         "default": [0,0,0,0]
     }, {
         "title": "Font",
-        "ui_width": 8,
+        "ui_width": 4,
         "name": "font",
         "type": "font",
-        "doc_link": true,
         "default": "silkscreen.ttf"
+    }, {
+        "title": "Feed",
+        "ui_width": 4,
+        "name": "feed",
+        "type": "select",
+        "options": [
+            ["personal", "Personal News Feed"],
+            ["corporate", "Corporate News Feed"]
+        ],
+        "default": "corporate"
     }, {
         "title": "URL",
         "ui_width": 12,

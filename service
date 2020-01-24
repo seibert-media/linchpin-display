@@ -18,7 +18,12 @@ session = requests.Session()
 session.auth = (CONFIG['username'], CONFIG['password'])
 
 def fetch_posts():
-    url = CONFIG['base_url'] + '/rest/enterprise-news-bundle/1.0/corporate-news-feed?offset=0&limit=10'
+    if CONFIG['feed'] == 'personal':
+        url = CONFIG['base_url'] + '/rest/enterprise-news-bundle/1.0/personal-news-feed?offset=0&limit=10'
+
+    else:
+        url = CONFIG['base_url'] + '/rest/enterprise-news-bundle/1.0/corporate-news-feed?offset=0&limit=10'
+
     return session.get(url).text
 
 def regenerate():
