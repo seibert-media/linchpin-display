@@ -113,9 +113,8 @@ local content = switcher(function()
     local function add_screen(screen)
         screens[#screens+1] = screen
     end
-    
+
     for idx,post in ipairs(posts) do
-        pp("add screen "..idx)
         add_screen({
             time = 10,
             prepare = function()
@@ -165,7 +164,6 @@ local content = switcher(function()
             end
         })
     end
-    pp(screens)
     return screens
 end)
 
