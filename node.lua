@@ -133,9 +133,9 @@ local content = switcher(function()
 
                 posy = NATIVE_HEIGHT-200
 
-                overlay:draw(0,posy,NATIVE_WIDTH,NATIVE_HEIGHT)
+                overlay:draw(0,posy-60,NATIVE_WIDTH,NATIVE_HEIGHT)
 
-                CONFIG.font:write(100, posy+20, post.kicker, 30, 255,255,255,1)
+                CONFIG.font:write(100, posy, post.kicker, 30, 255,255,255,1)
 
                 line = ''
                 for word in post.title:gmatch("%S+") do
@@ -150,12 +150,8 @@ local content = switcher(function()
                     end
                 end
 
-                CONFIG.font:write(100, posy+60, line, 70, 255,255,255,1)
-                CONFIG.font:write(5, NATIVE_HEIGHT-25, post.creator..' - '..post.likes..' likes, '..post.comments..' comments', 20, 255,255,255,1)
-
-                text = 'Content from '..CONFIG.base_url
-                text_width = CONFIG.font:width(text, 20)
-                CONFIG.font:write(NATIVE_WIDTH-text_width-5, NATIVE_HEIGHT-25, text, 20, 255,255,255,1)
+                CONFIG.font:write(100, posy+40, line, 70, 255,255,255,1)
+                CONFIG.font:write(100, posy+120, post.creator..' - '..post.likes..' likes, '..post.comments..' comments', 20, 255,255,255,1)
             end
         })
     end
