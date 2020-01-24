@@ -131,11 +131,6 @@ local content = switcher(function()
                     end
                 end
 
-
-                size = 70
-                while CONFIG.font:width(post.title, size) > NATIVE_WIDTH-200 do
-                    size = size - 2
-                end
                 posy = NATIVE_HEIGHT-200
 
                 overlay:draw(0,posy,NATIVE_WIDTH,NATIVE_HEIGHT)
