@@ -8,14 +8,14 @@
         ".gitignore"
     ],
     "options": [{
-        "title": "Background Color",
-        "ui_width": 4,
+        "title": "Background",
+        "ui_width": 2,
         "name": "background",
         "type": "color",
         "default": [0,0,0,0]
     }, {
         "title": "Font",
-        "ui_width": 4,
+        "ui_width": 6,
         "name": "font",
         "type": "font",
         "default": "silkscreen.ttf"
