@@ -18,13 +18,21 @@ session = requests.Session()
 session.auth = (CONFIG['username'], CONFIG['password'])
 
 def fetch_posts():
+    query_params = {
+        'offset': 0,
+        'limit': CONFIG['item_count'],
+    }
+
+    if len(CONFIG['additional_query']) > 0:
+        query_params.update({'config': CONFIG['additional_query']})
+
     if CONFIG['feed'] == 'personal':
-        url = CONFIG['base_url'] + '/rest/enterprise-news-bundle/1.0/personal-news-feed?offset=0&limit=10'
+        url = CONFIG['base_url'] + '/rest/enterprise-news-bundle/1.0/personal-news-feed'
 
     else:
-        url = CONFIG['base_url'] + '/rest/enterprise-news-bundle/1.0/corporate-news-feed?offset=0&limit=10'
+        url = CONFIG['base_url'] + '/rest/enterprise-news-bundle/1.0/corporate-news-feed'
 
-    return session.get(url).text
+    return session.get(url, params=query_params).text
 
 def regenerate():
     posts = []

@@ -36,14 +36,28 @@
         "type": "string",
         "default": "https://demonstration.linchpin-intranet.com"
     }, {
+        "title": "Query",
+        "ui_width": 12,
+        "name": "additional_query",
+        "type": "string",
+        "default": "",
+        "hint": "Additional query parameters (JSON, parameter 'config' iin request)"
+    }, {
+        "title": "Items",
+        "ui_width": 4,
+        "name": "item_count",
+        "type": "integer",
+        "default": 10,
+        "hint": "Number of Items to display"
+    }, {
         "title": "Username",
-        "ui_width": 6,
+        "ui_width": 4,
         "name": "username",
         "type": "string",
         "default": "tschroeder"
     }, {
         "title": "Password",
-        "ui_width": 6,
+        "ui_width": 4,
         "name": "password",
         "type": "string",
         "default": "tschroeder"
