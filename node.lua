@@ -151,7 +151,20 @@ local content = switcher(function()
                 end
 
                 CONFIG.font:write(100, posy+40, line, 70, 255,255,255,1)
-                CONFIG.font:write(100, posy+120, post.creator..' - '..post.likes..' likes, '..post.comments..' comments', 20, 255,255,255,1)
+
+                infoline = post.creator..' - '..post.likes..' like'
+
+                if post.likes ~= 1 then
+                    infoline = infoline..'s'
+                end
+
+                infoline = infoline..' '..post.comments..' commment'
+
+                if post.comments ~= 1 then
+                    infoline = infoline..'s'
+                end
+
+                CONFIG.font:write(100, posy+120, infoline, 20, 255,255,255,1)
             end
         })
     end
