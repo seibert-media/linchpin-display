@@ -158,7 +158,7 @@ local content = switcher(function()
                     infoline = infoline..'s'
                 end
 
-                infoline = infoline..' '..post.comments..' commment'
+                infoline = infoline..', '..post.comments..' commment'
 
                 if post.comments ~= 1 then
                     infoline = infoline..'s'
