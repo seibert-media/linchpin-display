@@ -8,17 +8,23 @@
         ".gitignore"
     ],
     "options": [{
-        "title": "Background",
-        "ui_width": 2,
-        "name": "background",
-        "type": "color",
-        "default": [0,0,0,0]
+        "title": "URL",
+        "ui_width": 12,
+        "name": "base_url",
+        "type": "string",
+        "default": "https://demonstration.linchpin-intranet.com"
     }, {
-        "title": "Font",
-        "ui_width": 6,
-        "name": "font",
-        "type": "font",
-        "default": "silkscreen.ttf"
+        "title": "Username",
+        "ui_width": 4,
+        "name": "username",
+        "type": "string",
+        "default": "tschroeder"
+    }, {
+        "title": "Password",
+        "ui_width": 4,
+        "name": "password",
+        "type": "string",
+        "default": "tschroeder"
     }, {
         "title": "Feed",
         "ui_width": 4,
@@ -29,12 +35,6 @@
             ["corporate", "Corporate News Feed"]
         ],
         "default": "corporate"
-    }, {
-        "title": "URL",
-        "ui_width": 12,
-        "name": "base_url",
-        "type": "string",
-        "default": "https://demonstration.linchpin-intranet.com"
     }, {
         "title": "Query",
         "ui_width": 12,
@@ -50,16 +50,16 @@
         "default": 10,
         "hint": "Number of Items to display"
     }, {
-        "title": "Username",
-        "ui_width": 4,
-        "name": "username",
-        "type": "string",
-        "default": "tschroeder"
+        "title": "Background",
+        "ui_width": 2,
+        "name": "background",
+        "type": "color",
+        "default": [0,0,0,0]
     }, {
-        "title": "Password",
-        "ui_width": 4,
-        "name": "password",
-        "type": "string",
-        "default": "tschroeder"
+        "title": "Font",
+        "ui_width": 6,
+        "name": "font",
+        "type": "font",
+        "default": "silkscreen.ttf"
     }]
 }
