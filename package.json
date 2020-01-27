@@ -1,5 +1,7 @@
 {
     "name": "Confluence Info-Beamer",
     "author": "fkunsmann@seibert-media.net",
-    "desc": "Shows Corporate News Feed"
+    "desc": "Shows Corporate News Feed",
+    "repository": "https://github.com/seibert-media/confluence-info-beamer",
+    "platforms": ["pi/epoch-1", "pi/epoch-2"]
 }
