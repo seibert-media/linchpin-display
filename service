@@ -45,7 +45,7 @@ def regenerate():
         posts.append({
             'postId': postId,
             'title': post['title'],
-            'image': True if 'imageUrlQuarterSize' in post else False,
+            'image': True if 'imageUrl' in post else False,
             'creator': post['creatorFullName'],
             'likes': post['socialFeatures']['numberOfLikes'],
             'comments': post['socialFeatures']['numberOfComments'],
