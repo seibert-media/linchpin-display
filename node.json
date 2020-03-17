@@ -8,7 +8,7 @@
         ".gitignore"
     ],
     "options": [{
-        "title": "URL",
+        "title": "URL (without trailing slash)",
         "ui_width": 12,
         "name": "base_url",
         "type": "string",
