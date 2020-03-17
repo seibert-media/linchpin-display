@@ -32,7 +32,7 @@ def fetch_posts():
     else:
         url = CONFIG['base_url'] + '/rest/enterprise-news-bundle/1.0/corporate-news-feed'
 
-    return session.get(url, params=query_params).text
+    return session.get(url, params=query_params, headers={'Accept': 'application/json'}).text
 
 def regenerate():
     posts = []
