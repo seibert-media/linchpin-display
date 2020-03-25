@@ -1,7 +1,6 @@
-# Confluence info-beamer node
+# Linchpin info-beamer node
 
-This node displays the latest news of „Corporate News“ Plugin for
-Confluence and Linchpin.
+This node displays the latest news of „Corporate News“ Plugin for Linchpin.
 
 ![Example content from demonstration.linchpin-intranet.com](example.png)
 

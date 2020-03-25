@@ -1,6 +1,6 @@
 
 {
-    "name": "Confluence",
+    "name": "Linchpin",
     "permissions": {
         "network": "Needs to fetch confluence news feed"
     },
