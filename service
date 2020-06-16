@@ -37,27 +37,33 @@ def fetch_posts():
 def regenerate():
     posts = []
 
-    for post in json.loads(fetch_posts()):
-        postId = str(post['postId'])
+    result = fetch_posts();
 
-        #date = datetime.fromtimestamp(post['creationDate'])
+    try:
+        for post in json.loads(result):
+            postId = str(post['postId'])
 
-        posts.append({
-            'postId': postId,
-            'title': post['title'],
-            'image': True if 'imageUrl' in post else False,
-            'creator': post['creatorFullName'],
-            'likes': post['socialFeatures']['numberOfLikes'],
-            'comments': post['socialFeatures']['numberOfComments'],
-            'excerpt': post['excerpt'],
-            'kicker': post['metadata']['kicker'].upper() if ('metadata' in post and 'kicker' in post['metadata']) else '',
-           # 'date': date.strftime('%A, %d.%m %H:%M'),
-        })
+            #date = datetime.fromtimestamp(post['creationDate'])
 
-        if 'imageUrl' in post and not isfile('postImage-'+postId+'.png'):
-            with open('postImage-'+postId+'.png', 'wb') as i:
-                image = session.get(CONFIG['base_url'] + post['imageUrl'])
-                i.write(image.content)
+            posts.append({
+                'postId': postId,
+                'title': post['title'],
+                'image': True if 'imageUrl' in post else False,
+                'creator': post['creatorFullName'],
+                'likes': post['socialFeatures']['numberOfLikes'],
+                'comments': post['socialFeatures']['numberOfComments'],
+                'excerpt': post['excerpt'],
+                'kicker': post['metadata']['kicker'].upper() if ('metadata' in post and 'kicker' in post['metadata']) else '',
+               # 'date': date.strftime('%A, %d.%m %H:%M'),
+            })
+
+            if 'imageUrl' in post and not isfile('postImage-'+postId+'.png'):
+                with open('postImage-'+postId+'.png', 'wb') as i:
+                    image = session.get(CONFIG['base_url'] + post['imageUrl'])
+                    i.write(image.content)
+    except Exception as e:
+        print repr(e)
+        print repr(result)
 
     if len(posts) > 0:
         with file("posts.json", "wb") as f:
