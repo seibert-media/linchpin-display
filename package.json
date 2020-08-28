@@ -1,7 +1,17 @@
 {
     "name": "Linchpin Info-Beamer",
     "author": "fkunsmann@seibert-media.net",
-    "desc": "Shows Corporate News Feed",
-    "repository": "https://github.com/seibert-media/confluence-info-beamer",
-    "platforms": ["pi/epoch-1", "pi/epoch-2"]
+    "desc": "Shows Corporate or Personal News Feed of a connected Linchpin Intranet",
+
+    "lifecycle": "production",
+    "nesting": {
+        "childs": [],
+        "parents": ["top-level"]
+    },
+    "offline": {
+        "support": "maybe",
+        "info": "Device will continue to show content already downloaded, but can't download new content if no connection is possible"
+    },
+    "platforms": ["pi/epoch-1", "pi/epoch-2"],
+    "repository": "https://github.com/seibert-media/confluence-info-beamer"
 }

@@ -2,10 +2,13 @@
 {
     "name": "Linchpin",
     "permissions": {
-        "network": "Needs to fetch confluence news feed"
+        "network": "Needs to fetch linchpin news feed"
     },
     "optional": [
-        ".gitignore"
+        ".gitignore",
+        "COPYRIGHT",
+        "example.png",
+        "README.md"
     ],
     "options": [{
         "title": "URL (without trailing slash)",
