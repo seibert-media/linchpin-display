@@ -5,8 +5,12 @@
 
     "lifecycle": "production",
     "nesting": {
-        "childs": [],
-        "parents": ["top-level"]
+        "childs": [
+            "any"
+        ],
+        "parents": [
+            "top-level"
+        ]
     },
     "offline": {
         "support": "maybe",
