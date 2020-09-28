@@ -68,7 +68,7 @@
         },
         {
             "title": "Show excerpt",
-            "ui_width": 4,
+            "ui_width": 3,
             "name": "show_excerpt",
             "type": "boolean",
             "default": false
@@ -90,6 +90,14 @@
             "name": "font",
             "type": "font",
             "default": "silkscreen.ttf"
+        },
+        {
+            "title": "Display Duration",
+            "ui_width": 3,
+            "name": "duration",
+            "type": "integer",
+            "default": 10,
+            "hint": "How long should each news entry be shown"
         }
     ]
 }

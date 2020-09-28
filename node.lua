@@ -116,7 +116,7 @@ local content = switcher(function()
 
     for idx,post in ipairs(posts) do
         add_screen({
-            time = 10,
+            time = CONFIG.duration,
             prepare = function()
             end;
             draw = function()
