@@ -179,7 +179,7 @@ local content = switcher(function()
                     CONFIG.font:write(100, posy-40+(80*i), line, 70, 255,255,255,1)
                 end
 
-                infoline = post.creator..' - '..post.likes..' like'
+                infoline = post.creator..' - '..post.date..' - '..post.likes..' like'
 
                 if post.likes ~= 1 then
                     infoline = infoline..'s'
