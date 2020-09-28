@@ -120,34 +120,6 @@ local content = switcher(function()
             prepare = function()
             end;
             draw = function()
-                if post.image and post_images[post.postId] then
-                    state, width, height = post_images[post.postId]:state()
-
-                    if state == 'loaded' then
-                        scale_factor_by_height = NATIVE_HEIGHT/height
-                        scale_factor_by_width = NATIVE_WIDTH/width
-
-                        if height*scale_factor_by_width > NATIVE_HEIGHT then
-                            scale_factor = scale_factor_by_height
-                        else
-                            scale_factor = scale_factor_by_width
-                        end
-
-                        if scale_factor < 1 then
-                            final_height = height*scale_factor
-                            final_width = width*scale_factor
-                        else
-                            final_height = height
-                            final_width = width
-                        end
-
-                        posx = (NATIVE_WIDTH-final_width)/2
-                        posy = (NATIVE_HEIGHT-final_height)/2
-
-                        post_images[post.postId]:draw(posx, posy, posx+final_width, posy+final_height)
-                    end
-                end
-
                 title_lines = {}
                 index = 1
                 for word in post.title:gmatch("%S+") do
@@ -189,6 +161,40 @@ local content = switcher(function()
                 else
                     posy = NATIVE_HEIGHT-120-(80*#title_lines)
                 end
+
+                if post.image and post_images[post.postId] then
+                    state, width, height = post_images[post.postId]:state()
+
+                    if state == 'loaded' then
+                        scale_factor_by_height = NATIVE_HEIGHT/height
+                        scale_factor_by_width = NATIVE_WIDTH/width
+
+                        if height*scale_factor_by_width > NATIVE_HEIGHT then
+                            scale_factor = scale_factor_by_height
+                        else
+                            scale_factor = scale_factor_by_width
+                        end
+
+                        if scale_factor < 1 then
+                            final_height = height*scale_factor
+                            final_width = width*scale_factor
+                        else
+                            final_height = height
+                            final_width = width
+                        end
+
+                        img_posx = (NATIVE_WIDTH-final_width)/2
+
+                        if final_height < posy then
+                            img_posy = (posy-final_height)/2
+                        else
+                            img_posy = 0
+                        end
+
+                        post_images[post.postId]:draw(img_posx, img_posy, img_posx+final_width, img_posy+final_height)
+                    end
+                end
+
 
                 if string.len(post.kicker) > 0 then
                     overlay:draw(0,posy-40,NATIVE_WIDTH,NATIVE_HEIGHT)
