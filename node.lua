@@ -148,26 +148,36 @@ local content = switcher(function()
                     end
                 end
 
-                posy = NATIVE_HEIGHT-200
-
-                overlay:draw(0,posy-60,NATIVE_WIDTH,NATIVE_HEIGHT)
-
-                CONFIG.font:write(100, posy, post.kicker, 30, 255,255,255,1)
-
-                line = ''
+                title_lines = {}
+                index = 1
                 for word in post.title:gmatch("%S+") do
-                    line_tmp = trim(line..' '..word)
+                    if title_lines[index] == nil then
+                        title_lines[index] = ''
+                    end
+
+                    line_tmp = trim(title_lines[index]..' '..word)
 
                     text_width = CONFIG.font:width(line_tmp, 70)
                     if text_width > NATIVE_WIDTH-200 then
-                        line = line..' ...'
-                        break
+                        index = index + 1
+                        title_lines[index] = word
                     else
-                        line = line_tmp
+                        title_lines[index] = line_tmp
                     end
                 end
 
-                CONFIG.font:write(100, posy+40, line, 70, 255,255,255,1)
+                posy = NATIVE_HEIGHT-160-(80*#title_lines)
+
+                if string.len(post.kicker) > 0 then
+                    overlay:draw(0,posy-40,NATIVE_WIDTH,NATIVE_HEIGHT)
+                    CONFIG.font:write(100, posy, post.kicker, 30, 255,255,255,1)
+                else
+                    overlay:draw(0,posy,NATIVE_WIDTH,NATIVE_HEIGHT)
+                end
+
+                for i, line in ipairs(title_lines) do
+                    CONFIG.font:write(100, posy-20+(80*i), line, 70, 255,255,255,1)
+                end
 
                 infoline = post.creator..' - '..post.likes..' like'
 
@@ -181,7 +191,7 @@ local content = switcher(function()
                     infoline = infoline..'s'
                 end
 
-                CONFIG.font:write(100, posy+120, infoline, 20, 255,255,255,1)
+                CONFIG.font:write(100, NATIVE_HEIGHT-80, infoline, 20, 255,255,255,1)
             end
         })
     end
