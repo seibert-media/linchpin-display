@@ -36,6 +36,14 @@
             "default": "tschroeder"
         },
         {
+            "title": "Insecure SSL",
+            "ui_width": 2,
+            "name": "ssl_no_verify",
+            "type": "boolean",
+            "default": false,
+            "hint": "Do not verify SSL certificates when doing requests"
+        },
+        {
             "type": "section",
             "title": "Feed to display"
         },
