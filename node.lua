@@ -166,7 +166,29 @@ local content = switcher(function()
                     end
                 end
 
-                posy = NATIVE_HEIGHT-120-(80*#title_lines)
+                excerpt_lines = {}
+                index = 1
+                for word in post.excerpt:gmatch("%S+") do
+                    if excerpt_lines[index] == nil then
+                        excerpt_lines[index] = ''
+                    end
+
+                    line_tmp = trim(excerpt_lines[index]..' '..word)
+
+                    text_width = CONFIG.font:width(line_tmp, 30)
+                    if text_width > NATIVE_WIDTH-200 then
+                        index = index + 1
+                        excerpt_lines[index] = word
+                    else
+                        excerpt_lines[index] = line_tmp
+                    end
+                end
+
+                if CONFIG.show_excerpt then
+                    posy = NATIVE_HEIGHT-120-(80*#title_lines)-(40*#excerpt_lines)
+                else
+                    posy = NATIVE_HEIGHT-120-(80*#title_lines)
+                end
 
                 if string.len(post.kicker) > 0 then
                     overlay:draw(0,posy-40,NATIVE_WIDTH,NATIVE_HEIGHT)
@@ -177,6 +199,12 @@ local content = switcher(function()
 
                 for i, line in ipairs(title_lines) do
                     CONFIG.font:write(100, posy-40+(80*i), line, 70, 255,255,255,1)
+                end
+
+                if CONFIG.show_excerpt then
+                    for i, line in ipairs(excerpt_lines) do
+                        CONFIG.font:write(100, posy+(80*#title_lines)+(40*i), line, 30, 255,255,255,1)
+                    end
                 end
 
                 infoline = post.creator..' - '..post.date..' - '..post.likes..' like'
