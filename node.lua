@@ -124,10 +124,27 @@ local content = switcher(function()
                     state, width, height = post_images[post.postId]:state()
 
                     if state == 'loaded' then
-                        posx = (NATIVE_WIDTH-width)/2
-                        posy = (NATIVE_HEIGHT-height)/2
+                        scale_factor_by_height = NATIVE_HEIGHT/height
+                        scale_factor_by_width = NATIVE_WIDTH/width
 
-                        post_images[post.postId]:draw(posx, posy, posx+width, posy+height)
+                        if height*scale_factor_by_width > NATIVE_HEIGHT then
+                            scale_factor = scale_factor_by_height
+                        else
+                            scale_factor = scale_factor_by_width
+                        end
+
+                        if scale_factor < 1 then
+                            final_height = height*scale_factor
+                            final_width = width*scale_factor
+                        else
+                            final_height = height
+                            final_width = width
+                        end
+
+                        posx = (NATIVE_WIDTH-final_width)/2
+                        posy = (NATIVE_HEIGHT-final_height)/2
+
+                        post_images[post.postId]:draw(posx, posy, posx+final_width, posy+final_height)
                     end
                 end
 
