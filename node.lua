@@ -166,7 +166,7 @@ local content = switcher(function()
                     end
                 end
 
-                posy = NATIVE_HEIGHT-160-(80*#title_lines)
+                posy = NATIVE_HEIGHT-120-(80*#title_lines)
 
                 if string.len(post.kicker) > 0 then
                     overlay:draw(0,posy-40,NATIVE_WIDTH,NATIVE_HEIGHT)
@@ -176,7 +176,7 @@ local content = switcher(function()
                 end
 
                 for i, line in ipairs(title_lines) do
-                    CONFIG.font:write(100, posy-20+(80*i), line, 70, 255,255,255,1)
+                    CONFIG.font:write(100, posy-40+(80*i), line, 70, 255,255,255,1)
                 end
 
                 infoline = post.creator..' - '..post.likes..' like'
