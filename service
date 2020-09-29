@@ -60,7 +60,7 @@ def regenerate():
                 'comments': post['socialFeatures']['numberOfComments'],
                 'excerpt': post['excerpt'],
                 'kicker': post.get('metadata', {}).get('kicker', '').upper(),
-                'date': date.strftime('%A, %d.%m %H:%M'),
+                'date': date.strftime('%A, %d.%m. %H:%M'),
             })
 
             if 'imageUrl' in post and not isfile('postImage-'+postId+'.png'):
