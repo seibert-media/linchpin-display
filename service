@@ -22,6 +22,18 @@ session.auth = (CONFIG['username'], CONFIG['password'])
 ssl_verify = not CONFIG['ssl_no_verify']
 
 
+def replace_entities_in_string(string):
+    # I know, this could be done using HTMLParser - but this opens a can
+    # of worms because we're dealing with python2.7 and unicode.
+    for source, replacement in {
+        '&nbsp;': ' ',
+        '&amp;': '&',
+    }.items():
+        string = string.replace(source, replacement)
+
+    return string
+
+
 def fetch_posts():
     query_params = {
         'offset': 0,
@@ -53,13 +65,13 @@ def regenerate():
 
             posts.append({
                 'postId': postId,
-                'title': post['title'],
+                'title': replace_entities_in_string(post['title']),
                 'image': True if 'imageUrl' in post else False,
                 'creator': post['creatorFullName'],
                 'likes': post['socialFeatures']['numberOfLikes'],
                 'comments': post['socialFeatures']['numberOfComments'],
-                'excerpt': post['excerpt'],
-                'kicker': post.get('metadata', {}).get('kicker', '').upper(),
+                'excerpt': replace_entities_in_string(post['excerpt']),
+                'kicker': replace_entities_in_string(post.get('metadata', {}).get('kicker', '')).upper(),
                 'date': date.strftime('%A, %d.%m. %H:%M'),
             })
 
