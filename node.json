@@ -64,14 +64,8 @@
             "name": "item_count",
             "type": "integer",
             "default": 10,
-            "hint": "Number of Items to display"
-        },
-        {
-            "title": "Show excerpt",
-            "ui_width": 3,
-            "name": "show_excerpt",
-            "type": "boolean",
-            "default": false
+            "hint": "Number of Items to display",
+            "ui_spacing": 3
         },
         {
             "title": "Query",
@@ -80,6 +74,32 @@
             "type": "string",
             "default": "",
             "hint": "Additional query parameters (JSON, parameter 'config' in request)"
+        },
+        {
+            "type": "section",
+            "title": "Display Options"
+        },
+        {
+            "title": "Font",
+            "ui_width": 6,
+            "name": "font",
+            "type": "font",
+            "default": "silkscreen.ttf"
+        },
+        {
+            "title": "Display Duration",
+            "ui_width": 3,
+            "name": "duration",
+            "type": "integer",
+            "default": 10,
+            "hint": "How long should each news entry be shown"
+        },
+        {
+            "title": "Show excerpt",
+            "ui_width": 3,
+            "name": "show_excerpt",
+            "type": "boolean",
+            "default": false
         },
         {
             "title": "info line",
@@ -101,32 +121,6 @@
                 [9999, "unlimited (scale all images)"]
             ],
             "default": 1
-        },
-        {
-            "type": "section",
-            "title": "Display Options"
-        },
-        {
-            "title": "Background",
-            "ui_width": 2,
-            "name": "background",
-            "type": "color",
-            "default": [0,0,0,0]
-        },
-        {
-            "title": "Font",
-            "ui_width": 7,
-            "name": "font",
-            "type": "font",
-            "default": "silkscreen.ttf"
-        },
-        {
-            "title": "Display Duration",
-            "ui_width": 3,
-            "name": "duration",
-            "type": "integer",
-            "default": 10,
-            "hint": "How long should each news entry be shown"
         }
     ]
 }
