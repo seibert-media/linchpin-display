@@ -90,6 +90,19 @@
             "doc_link": true
         },
         {
+            "title": "maximum image scale factor",
+            "ui_width": 4,
+            "name": "max_image_scale_factor",
+            "type": "select",
+            "options": [
+                [1, "1x (do not scale up)"],
+                [2, "2x (double size)"],
+                [3, "3x (triple size"],
+                [9999, "unlimited (scale all images)"]
+            ],
+            "default": 1
+        },
+        {
             "type": "section",
             "title": "Display Options"
         },

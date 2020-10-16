@@ -175,7 +175,7 @@ local content = switcher(function()
                             scale_factor = scale_factor_by_width
                         end
 
-                        if scale_factor < 1 then
+                        if scale_factor < CONFIG.max_image_scale_factor then
                             final_height = height*scale_factor
                             final_width = width*scale_factor
                         else
