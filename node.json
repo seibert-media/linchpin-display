@@ -79,7 +79,15 @@
             "name": "additional_query",
             "type": "string",
             "default": "",
-            "hint": "Additional query parameters (JSON, parameter 'config' iin request)"
+            "hint": "Additional query parameters (JSON, parameter 'config' in request)"
+        },
+        {
+            "title": "info line",
+            "ui_width": 12,
+            "name": "infoline_formatstring",
+            "type": "string",
+            "default": "{author} - {date} - {likes_and_comments}",
+            "doc_link": true
         },
         {
             "type": "section",
