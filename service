@@ -68,6 +68,10 @@ def regenerate():
                 cs='s' if post['socialFeatures']['numberOfComments'] != 1 else '',
             )
 
+            categories = set()
+            for cat_id, cat_name in post.get('metadata', {}).get('categoryMap', {}).items():
+                categories.add(replace_entities_in_string(cat_name))
+
             posts.append({
                 'postId': postId,
                 'title': replace_entities_in_string(post['title']),
@@ -78,6 +82,8 @@ def regenerate():
                     author=replace_entities_in_string(post['creatorFullName']),
                     date=date.strftime('%A, %d.%m. %H:%M'),
                     likes_and_comments=likes_and_comments,
+                    space=post['spaceName'],
+                    categories=', '.join(sorted(categories)),
                 ),
             })
 
