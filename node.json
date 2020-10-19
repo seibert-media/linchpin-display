@@ -117,7 +117,7 @@
             "options": [
                 [1, "1x (do not scale up)"],
                 [2, "2x (double size)"],
-                [3, "3x (triple size"],
+                [3, "3x (triple size)"],
                 [9999, "unlimited (scale all images)"]
             ],
             "default": 1
