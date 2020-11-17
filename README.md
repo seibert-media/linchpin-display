@@ -15,4 +15,4 @@ This is a python format string. Currently we support the following placeholders:
 - `{categories}`
 
 
-[![Import](https://cdn.infobeamer.com/s/img/import.png)](https://info-beamer.com/use?url=https://github.com/seibert-media/confluence-info-beamer)
+[![Import](https://cdn.infobeamer.com/s/img/import.png)](https://info-beamer.com/use?url=https://github.com/seibert-media/linchpin-display)
