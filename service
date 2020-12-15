@@ -28,6 +28,8 @@ def replace_entities_in_string(string):
     for source, replacement in {
         '&nbsp;': ' ',
         '&amp;': '&',
+        '&gt;': '>',
+        '&lt;': '<',
     }.items():
         string = string.replace(source, replacement)
 
