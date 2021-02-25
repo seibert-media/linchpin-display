@@ -6,8 +6,9 @@
     "optional": [
         ".gitignore",
         "COPYRIGHT",
-        "example.png",
-        "README.md"
+        "README.md",
+        "doc/output.png",
+        "doc/settings.png"
     ],
     "options": [
         {
