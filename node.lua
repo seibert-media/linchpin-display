@@ -22,6 +22,8 @@ util.file_watch("posts.json", function(content)
             end
         end
     end
+
+    post_images['LOGO_'..CONFIG.logo.asset_name] = resource.load_image(CONFIG.logo.asset_name)
 end)
 
 function trim(s)
@@ -229,4 +231,9 @@ function node.render()
                         NATIVE_WIDTH/2, NATIVE_HEIGHT/2, 0)
     content.draw()
 
+    logo_state, logo_width, logo_height = post_images['LOGO_'..CONFIG.logo.asset_name]:state()
+    if logo_state == 'loaded' then
+        logo_x = NATIVE_WIDTH-50-logo_width
+        post_images['LOGO_'..CONFIG.logo.asset_name]:draw(logo_x, 50, logo_x+logo_width, 50+logo_height)
+    end
 end

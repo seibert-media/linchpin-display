@@ -47,7 +47,7 @@ if you want to show an except of the news text and if you want to scale
 *up* images. Downscaling to fit the images onto the screen will always
 happen, it's not possible to disable that.
 
-The last option is a Template for the info line, shown below everything
+The fifth option is a Template for the info line, shown below everything
 else. This is evaluated as a python format string, which supports the
 following placeholders
 
@@ -57,3 +57,7 @@ following placeholders
 - `{space}`: space name
 - `{categories}`: Comma separated list of categories the post is filed
   under.
+
+You may also configure a logo, which will be shown in the top right corner
+of the connected screen. Linchpin Display will not perform any scaling to
+this image.

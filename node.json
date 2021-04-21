@@ -122,6 +122,15 @@
                 [9999, "unlimited (scale all images)"]
             ],
             "default": 1
+        },
+        {
+            "title": "Logo",
+            "ui_width": 6,
+            "name": "logo",
+            "type": "resource",
+            "valid": ["image"],
+            "default": "linchpin.png",
+            "hint": "Displayed in uploaded size in the top right corner (no scaling)"
         }
     ]
 }
