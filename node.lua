@@ -4,26 +4,22 @@ gl.setup(NATIVE_WIDTH, NATIVE_HEIGHT)
 
 local json = require "json"
 local posts = {}
-local post_images = {}
+local images = {}
 local overlay = resource.load_image('overlay.png')
 local current_post = 1
 local last_change = 0
-local white = resource.create_colored_texture(1,1,1)
+local white = resource.create_colored_texture(1,1,1,1)
+local cwa_width = CONFIG.font:width('Corona-Warn-App', 25)
 
 crossfade = util.shader_loader("crossfade.frag")
 
-util.file_watch("posts.json", function(content)
-    posts = json.decode(content)
-
-    for idx, post in ipairs(posts) do
-        if post.image then
-            if not post_images[post.postId] then
-                post_images[post.postId] = resource.load_image('postImage-'..post.postId..'.png')
-            end
-        end
+node.event("content_update", function(filename, file)
+    print('loading '..filename)
+    if filename == "posts.json" then
+        posts = json.decode(resource.load_file(file))
+    elseif filename:find(".png$") then
+        images[filename] = resource.load_image(file)
     end
-
-    post_images['LOGO_'..CONFIG.logo.asset_name] = resource.load_image(CONFIG.logo.asset_name)
 end)
 
 function trim(s)
@@ -164,8 +160,9 @@ local content = switcher(function()
                     posy = NATIVE_HEIGHT-120-(80*#title_lines)
                 end
 
-                if post.image and post_images[post.postId] then
-                    state, width, height = post_images[post.postId]:state()
+                image_file_name = 'postImage-'..post.postId..'.png'
+                if post.image and images[image_file_name] then
+                    state, width, height = images[image_file_name]:state()
 
                     if state == 'loaded' then
                         scale_factor_by_height = NATIVE_HEIGHT/height
@@ -193,7 +190,7 @@ local content = switcher(function()
                             img_posy = 0
                         end
 
-                        post_images[post.postId]:draw(img_posx, img_posy, img_posx+final_width, img_posy+final_height)
+                        images[image_file_name]:draw(img_posx, img_posy, img_posx+final_width, img_posy+final_height)
                     end
                 end
 
@@ -231,9 +228,20 @@ function node.render()
                         NATIVE_WIDTH/2, NATIVE_HEIGHT/2, 0)
     content.draw()
 
-    logo_state, logo_width, logo_height = post_images['LOGO_'..CONFIG.logo.asset_name]:state()
-    if logo_state == 'loaded' then
-        logo_x = NATIVE_WIDTH-50-logo_width
-        post_images['LOGO_'..CONFIG.logo.asset_name]:draw(logo_x, 50, logo_x+logo_width, 50+logo_height)
+    if CONFIG.logo_type == 'logo' then
+        logo_state, logo_width, logo_height = images[CONFIG.logo.asset_name]:state()
+        if logo_state == 'loaded' then
+            logo_x = NATIVE_WIDTH-50-logo_width
+            images[CONFIG.logo.asset_name]:draw(logo_x, 50, logo_x+logo_width, 50+logo_height)
+        end
+    elseif CONFIG.logo_type == 'cwa' then
+        logo_state, logo_width, logo_height = images['cwa-qr-code.png']:state()
+        if logo_state == 'loaded' then
+            logo_x = NATIVE_WIDTH-50-logo_width
+            font_x = logo_x+((logo_width/2)-(cwa_width/2))
+            white:draw(logo_x, 50, logo_x+logo_width, 80)
+            images['cwa-qr-code.png']:draw(logo_x, 80, logo_x+logo_width, 80+logo_height)
+            CONFIG.font:write(font_x, 55, 'Corona-Warn-App', 25, 0,0,0,1)
+        end
     end
 end

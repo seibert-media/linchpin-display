@@ -58,6 +58,24 @@ following placeholders
 - `{categories}`: Comma separated list of categories the post is filed
   under.
 
-You may also configure a logo, which will be shown in the top right corner
-of the connected screen. Linchpin Display will not perform any scaling to
-this image.
+### Logo / Corona-Warn-App
+
+If you want, you can choose either a logo or a Corona-Warn-App (Germany)
+compatible QR code in the top right corner.
+
+If using the `Logo` option, the configured logo will be shown without
+any scaling. We recommend a size below 200x200px.
+
+If you choose to display a QR code, you have to enter a Location. This
+will be used as the "Location Description" in the QR Code. "Location
+Address" will be set to the "linchpin display", plus the serial number
+of the device that's running linchpin display. This assures you'll get
+a different QR code for each display.
+
+You may also configura a lifetime for those QR codes. They will be
+automatically regenerated after the specified time.
+
+The QR code feature requires your pi to be able to connect to a
+//SEIBERT/MEDIA hosted server. That server will take care of creating
+the QR code and sending it to the pi. We will not store any information
+about the generated QR code.

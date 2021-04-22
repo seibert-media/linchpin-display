@@ -8,9 +8,12 @@ from datetime import datetime, timedelta
 import base64
 import pytz
 import urllib3
-from os.path import isfile
+from os import getenv
+from os.path import isfile, getmtime
 
 from hosted import CONFIG, NODE
+
+CWA_QR_URL = 'https://cwa-qr-generator.smedia.tools/generate'
 
 CONFIG.restart_on_update()
 
@@ -34,6 +37,48 @@ def replace_entities_in_string(string):
         string = string.replace(source, replacement)
 
     return string
+
+
+def generate_cwa_qr_code():
+    if CONFIG['logo_type'] != 'cwa':
+        print '[CWA QR] disabled'
+        return
+
+    now_timestamp = time.time()
+    needs_regenerate = False
+    try:
+        mtime = getmtime('cwa-qr-code.png')
+        if (int(mtime) + (CONFIG['qr_regenerate_every']*60*60)) < now_timestamp:
+            needs_regenerate = True
+            print '[CWA QR] needs renewing'
+    except Exception as e:
+        print '[CWA QR] could not detect mtime: {}'.format(repr(e))
+        needs_regenerate = True
+
+    if needs_regenerate:
+        try:
+            qr = requests.post(
+                CWA_QR_URL,
+                json={
+                    'description': CONFIG['qr_description'],
+                    'address': 'linchpin display {}'.format(getenv('SERIAL')),
+                    'start_utc': now_timestamp,
+                    'end_utc': (now_timestamp + CONFIG['qr_regenerate_every']*2*60*60),
+                    'location_type': 6,
+                    'checkin_length_minutes': (CONFIG['qr_regenerate_every']*60),
+                    'qr_size': 300,
+                },
+                headers={'Content-Type': 'application/json'},
+            )
+            qr.raise_for_status()
+            with open('cwa-qr-code.png', 'wb') as img:
+                img.write(qr.content)
+
+            print '[CWA QR] renewed'
+        except Exception as e:
+            print '[CWA QR] could not be renewed: {}'.format(repr(e))
+    else:
+        print '[CWA QR] does not need renewing'
 
 
 def fetch_posts():
@@ -108,6 +153,7 @@ def main():
     while 1:
         try:
             regenerate()
+            generate_cwa_qr_code()
             time.sleep(60)
         except Exception:
             traceback.print_exc()

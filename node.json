@@ -124,13 +124,45 @@
             "default": 1
         },
         {
+            "type": "section",
+            "title": "Logo / Corona-Warn-App"
+        },
+        {
+            "title": "Type",
+            "ui_width": 5,
+            "name": "logo_type",
+            "type": "select",
+            "options": [
+                ["none", "None"],
+                ["logo", "Logo"],
+                ["cwa", "QR Code for Corona-Warn-App"]
+            ],
+            "default": "logo"
+        },
+        {
             "title": "Logo",
-            "ui_width": 6,
+            "ui_width": 7,
             "name": "logo",
             "type": "resource",
             "valid": ["image"],
             "default": "linchpin.png",
             "hint": "Displayed in uploaded size in the top right corner (no scaling)"
+        },
+        {
+            "title": "Location",
+            "ui_width": 7,
+            "name": "qr_description",
+            "type": "string",
+            "default": "Some Company",
+            "hint": "Your Location"
+        },
+        {
+            "title": "Regenerate every .. hours",
+            "ui_width": 5,
+            "name": "qr_regenerate_every",
+            "type": "integer",
+            "default": 8,
+            "hint": "How often should the QR Code be regenerated"
         }
     ]
 }
