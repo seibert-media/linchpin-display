@@ -79,3 +79,6 @@ The QR code feature requires your pi to be able to connect to a
 //SEIBERT/MEDIA hosted server. That server will take care of creating
 the QR code and sending it to the pi. We will not store any information
 about the generated QR code.
+
+Please note it may take up to two minutes for the QR code to appear after
+selecting/changing any QR code related options.
