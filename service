@@ -55,6 +55,18 @@ def generate_cwa_qr_code():
         print '[CWA QR] could not detect mtime: {}'.format(repr(e))
         needs_regenerate = True
 
+    try:
+        with open('cwa-qr-content.txt', 'r') as f:
+            old_content = f.read()
+
+        if old_content != CONFIG['qr_description']:
+            print '[CWA QR] qr_description has changed'
+            needs_regenerate = True
+    except Exception as e:
+        print '[CWA QR] could not detect changes in text: {}'.format(repr(e))
+        needs_regenerate = True
+
+
     if needs_regenerate:
         try:
             qr = requests.post(
@@ -73,6 +85,9 @@ def generate_cwa_qr_code():
             qr.raise_for_status()
             with open('cwa-qr-code.png', 'wb') as img:
                 img.write(qr.content)
+
+            with open('cwa-qr-content.txt', 'w') as f:
+                f.write(CONFIG['qr_description'])
 
             print '[CWA QR] renewed'
         except Exception as e:
