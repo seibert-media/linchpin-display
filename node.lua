@@ -9,7 +9,7 @@ local overlay = resource.load_image('overlay.png')
 local current_post = 1
 local last_change = 0
 local white = resource.create_colored_texture(1,1,1,1)
-local cwa_width = CONFIG.font:width('Corona-Warn-App', 25)
+local cwa_logo = resource.load_image('cwa-logo.png')
 
 crossfade = util.shader_loader("crossfade.frag")
 
@@ -235,13 +235,16 @@ function node.render()
             images[CONFIG.logo.asset_name]:draw(logo_x, 50, logo_x+logo_width, 50+logo_height)
         end
     elseif CONFIG.logo_type == 'cwa' then
-        logo_state, logo_width, logo_height = images['cwa-qr-code.png']:state()
-        if logo_state == 'loaded' then
-            logo_x = NATIVE_WIDTH-50-logo_width
-            font_x = logo_x+((logo_width/2)-(cwa_width/2))
-            white:draw(logo_x, 50, logo_x+logo_width, 80)
-            images['cwa-qr-code.png']:draw(logo_x, 80, logo_x+logo_width, 80+logo_height)
-            CONFIG.font:write(font_x, 55, 'Corona-Warn-App', 25, 0,0,0,1)
+        qr_state, qr_width, qr_height = images['cwa-qr-code.png']:state()
+        if qr_state == 'loaded' then
+            qr_x = NATIVE_WIDTH-50-qr_width
+            white:draw(qr_x, 50, qr_x+qr_width, 155)
+            images['cwa-qr-code.png']:draw(qr_x, 155, qr_x+qr_width, 155+qr_height)
+
+            logo_state, logo_width, logo_height = cwa_logo:state()
+            if logo_state == 'loaded' then
+                cwa_logo:draw(qr_x+16, 66, qr_x+16+logo_width, 66+logo_height)
+            end
         end
     end
 end
