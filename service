@@ -84,7 +84,7 @@ def generate_cwa_qr_code():
 
             with open('cwa-qr-code.txt', 'w') as f:
                 f.write('{}\n{}\n'.format(
-                    int(time.time()),
+                    (utc_next_midnight-10),
                     CONFIG['qr_description'],
                 ))
 
