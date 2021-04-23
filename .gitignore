@@ -1,6 +1,7 @@
 venv
 *.pyc
 postImage-*
+cwa-qr-code.*
 posts.json
 DejaVuSans.ttf
 config.json

@@ -157,12 +157,11 @@
             "hint": "Your Location"
         },
         {
-            "title": "Regenerate every .. hours",
+            "title": "Default Check-In Time (Hours)",
             "ui_width": 5,
-            "name": "qr_regenerate_every",
+            "name": "qr_checkin_time",
             "type": "integer",
-            "default": 8,
-            "hint": "How often should the QR Code be regenerated"
+            "default": 8
         }
     ]
 }

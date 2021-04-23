@@ -9,7 +9,7 @@ import base64
 import pytz
 import urllib3
 from os import getenv
-from os.path import isfile, getmtime
+from os.path import isfile
 
 from hosted import CONFIG, NODE
 
@@ -44,26 +44,22 @@ def generate_cwa_qr_code():
         print '[CWA QR] disabled'
         return
 
-    now_timestamp = time.time()
+    utc_last_midnight = int((time.time()//86400)*86400)
+    utc_next_midnight = utc_last_midnight+86400
     needs_regenerate = False
     try:
-        mtime = getmtime('cwa-qr-code.png')
-        if (int(mtime) + (CONFIG['qr_regenerate_every']*60*60)) < now_timestamp:
+        with open('cwa-qr-code.txt', 'r') as f:
+            old_content = f.read().splitlines()
+
+        if int(old_content[0]) < utc_last_midnight:
+            print '[CWA QR] older than last midnight'
             needs_regenerate = True
-            print '[CWA QR] needs renewing'
-    except Exception as e:
-        print '[CWA QR] could not detect mtime: {}'.format(repr(e))
-        needs_regenerate = True
 
-    try:
-        with open('cwa-qr-content.txt', 'r') as f:
-            old_content = f.read()
-
-        if old_content != CONFIG['qr_description']:
+        if old_content[1] != CONFIG['qr_description']:
             print '[CWA QR] qr_description has changed'
             needs_regenerate = True
     except Exception as e:
-        print '[CWA QR] could not detect changes in text: {}'.format(repr(e))
+        print '[CWA QR] could not detect changes: {}'.format(repr(e))
         needs_regenerate = True
 
 
@@ -74,10 +70,10 @@ def generate_cwa_qr_code():
                 json={
                     'description': CONFIG['qr_description'],
                     'address': 'linchpin display {}'.format(getenv('SERIAL')),
-                    'start_utc': now_timestamp,
-                    'end_utc': (now_timestamp + CONFIG['qr_regenerate_every']*2*60*60),
+                    'start_utc': utc_last_midnight,
+                    'end_utc': utc_next_midnight,
                     'location_type': 6,
-                    'checkin_length_minutes': (CONFIG['qr_regenerate_every']*60),
+                    'checkin_length_minutes': (CONFIG['qr_checkin_time']*60),
                     'qr_size': 300,
                 },
                 headers={'Content-Type': 'application/json'},
@@ -86,8 +82,11 @@ def generate_cwa_qr_code():
             with open('cwa-qr-code.png', 'wb') as img:
                 img.write(qr.content)
 
-            with open('cwa-qr-content.txt', 'w') as f:
-                f.write(CONFIG['qr_description'])
+            with open('cwa-qr-code.txt', 'w') as f:
+                f.write('{}\n{}\n'.format(
+                    int(time.time()),
+                    CONFIG['qr_description'],
+                ))
 
             print '[CWA QR] renewed'
         except Exception as e:
@@ -155,7 +154,7 @@ def regenerate():
                     i.write(image.content)
     except Exception as e:
         print repr(e)
-        print repr(result)
+        raise
 
     if len(posts) > 0:
         with file("posts.json", "wb") as f:
